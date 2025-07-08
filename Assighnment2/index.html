@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+
+
+    <div class="navbar">
+        <h1>Shop With Me</h1>
+
+
+
+
+
+
+        <div class="account">
+            <a href="#">Account</a>
+        </div>
+
+        <div class="dropdowns">
+            <select>
+
+                <option>Venila </option>
+                <option>Chocolate</option>
+                <option>Strawbery </option>
+            </select>
+
+            <select>
+
+                <option>Price: Low to High</option>
+                <option>Price: High to Low</option>
+                <option>Popularity</option>
+            </select>
+        </div>
+
+        <div class="search-container">
+            <input type="text" placeholder="Type your item">
+            <button>Search</button>
+        </div>
+        <i class="shop-icon fas fa-shopping-cart"> <sub>1</sub></i>
+    </div>
+
+
+    <div class="banner">
+        <img src="images.jpg" alt="Cover Photo">
+        <button class="banner-btn">Shop Now</button>
+    </div>
+
+
+    
+    <!-- offered item div -->
+    <div class="offer-section">
+        <div class="offer-card">
+            <span class="offer-label">50% OFF</span>
+            <img src="cake5.jpg" alt="Chocolate Special">
+            <div class="price-info">
+                <p class="old-price"><del>200 TK</del></p>
+                <p class="new-price">100 TK</p>
+                <button class="add-to-cart" data-name="Burger" data-price="100">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <!-- Item Cards er jayga -->
+    <div class="container">
+        <div class="card">
+            <img src="cake1.jpg" alt="Venila">
+            <h3>Venila</h3>
+            <p class="price">15 TK</p>
+            <button class="add-to-cart" data-name="Venila" data-price="15">Add to Cart</button>
+        </div>
+
+        <div class="card">
+            <img src="cake2.jpg" alt="Strawbery">
+            <h3>Strawbery</h3>
+            <p class="price">5 TK</p>
+            <button class="add-to-cart" data-name="Strawbery" data-price="5">Add to Cart</button>
+        </div>
+
+        <div class="card">
+            <img src="cake3.jpg" alt="Chocolate">
+            <h3>Chocolate</h3>
+            <p class="price">30 TK</p>
+            <button class="add-to-cart" data-name="Chocolate" data-price="30">Add to Cart</button>
+        </div>
+
+        <div class="card">
+            <img src="cake4.jpg" alt="Venila">
+            <h3>Venila</h3>
+            <p class="price">50 TK</p>
+            <button class="add-to-cart" data-name="Venila" data-price="50">Add to Cart</button>
+        </div>
+        <footer>
+            <h5> Thanks for watching</h5>
+        </footer>
+
+        <div id="cart-dropdown" class="cart-dropdown">
+            <h3>Your Cart</h3>
+            <ul id="cart-items"></ul>
+            <p>Total: <span id="cart-total">0 TK</span></p>
+        </div>
+
+
+
+
+
+
+        <script>
+            const cartIcon = document.querySelector('.shop-icon');
+            const cartDropdown = document.getElementById('cart-dropdown');
+            const cartItemsList = document.getElementById('cart-items');
+            const cartTotal = document.getElementById('cart-total');
+
+            let cart = [];
+
+            // Toggle cart display
+            cartIcon.addEventListener('click', () => {
+                cartDropdown.style.display = cartDropdown.style.display === 'block' ? 'none' : 'block';
+            });
+
+            // Add to cart
+            document.querySelectorAll('.add-to-cart').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const name = btn.getAttribute('data-name');
+                    const price = parseFloat(btn.getAttribute('data-price'));
+
+                    cart.push({ name, price });
+                    updateCartDisplay();
+                });
+            });
+
+            function updateCartDisplay() {
+                cartItemsList.innerHTML = '';
+                let total = 0;
+
+                cart.forEach((item, index) => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `
+                ${item.name} - ${item.price} TK 
+                <button onclick="removeItem(${index})">
+                    <i class="fa-solid fa-xmark"></i>
+                    </button>
+            `;
+                    cartItemsList.appendChild(li);
+                    total += item.price;
+                });
+
+                cartTotal.innerText = total + ' TK';
+                document.querySelector('.shop-icon sub').innerText = cart.length;
+            }
+
+            // Remove item from cart
+            function removeItem(index) {
+                cart.splice(index, 1);
+                updateCartDisplay();
+            }
+
+            window.removeItem = removeItem; // make available globally
+        </script>
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
